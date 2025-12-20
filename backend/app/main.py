@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # API router'ları import et
-from app.api import upload
+from app.api import upload, analysis
 
 # FastAPI uygulaması oluştur
 app = FastAPI(
@@ -34,6 +34,7 @@ app.add_middleware(
 
 # API router'larını ekle
 app.include_router(upload.router, prefix="/api/v1", tags=["Upload"])
+app.include_router(analysis.router, prefix="/api/v1", tags=["Analysis"])
 
 # Health check endpoint
 @app.get("/health")

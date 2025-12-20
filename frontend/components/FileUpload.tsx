@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import DataAnalysis from "./DataAnalysis";
 
 interface UploadResponse {
   message: string;
@@ -179,6 +180,11 @@ export default function FileUpload() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Detailed Analysis */}
+      {uploadResult && (
+        <DataAnalysis filename={uploadResult.data.filename} />
       )}
     </div>
   );
