@@ -1,0 +1,21 @@
+id,name,age,city,salary,department,experience_years,is_active
+1,Ahmet Yılmaz,28,İstanbul,75000,Engineering,5,true
+2,Ayşe Kaya,34,Ankara,92000,Marketing,8,true
+3,Mehmet Demir,25,İzmir,58000,Sales,2,true
+4,Zeynep Şahin,31,Bursa,85000,Engineering,6,true
+5,Can Öztürk,29,Antalya,68000,HR,4,false
+6,Elif Yıldız,27,İstanbul,72000,Engineering,3,true
+7,Burak Arslan,35,Ankara,95000,Management,10,true
+8,Selin Çelik,26,İzmir,62000,Marketing,3,true
+9,Emre Koç,32,İstanbul,88000,Engineering,7,true
+10,Deniz Aydın,30,Bursa,78000,Sales,5,true
+11,Kerem Polat,28,Antalya,71000,Engineering,4,true
+12,Merve Erdoğan,33,İstanbul,91000,Marketing,9,true
+13,Oğuz Yurt,27,Ankara,65000,HR,3,true
+14,Gizem Kara,29,İzmir,74000,Sales,5,false
+15,Baran Tekin,31,Bursa,82000,Engineering,6,true
+16,Ceren Güneş,26,İstanbul,67000,Marketing,2,true
+17,Kaan Taş,34,Antalya,89000,Management,8,true
+18,Nazlı Bulut,28,Ankara,73000,Engineering,4,true
+19,Arda Kurt,30,İzmir,79000,Sales,6,true
+20,Şeyma Doğan,32,İstanbul,86000,Engineering,7,true
