@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import DataAnalysis from "./DataAnalysis";
+import CTGANManager from "./CTGANManager";
 
 interface UploadResponse {
   message: string;
@@ -185,6 +186,10 @@ export default function FileUpload() {
       {/* Detailed Analysis */}
       {uploadResult && (
         <DataAnalysis filename={uploadResult.data.filename} />
+n      {/* CTGAN Manager */}
+      {uploadResult && (
+        <CTGANManager filename={uploadResult.data.filename} />
+      )}
       )}
     </div>
   );
