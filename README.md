@@ -62,6 +62,10 @@ Frontend başarıyla çalışıyorsa: **http://localhost:3000**
 1. Frontend'e gidin: http://localhost:3000
 2. Bir CSV dosyası yükleyin
 3. Sistem dosyayı analiz edecek ve istatistikleri gösterecek
+4. CTGAN Model Yönetimi sekmesinden:
+   - Model eğitin (Epoch ve Batch Size ayarlayarak)
+   - Eğitilen modeli kullanarak sentetik veri üretin
+   - Üretilen verinin kalite değerlendirmesini görüntüleyin
 
 ## 📁 Proje Yapısı
 
@@ -70,12 +74,22 @@ MissingLink/
 ├── backend/
 │   ├── app/
 │   │   ├── api/           # API endpoints
-│   │   ├── models/        # Veri modelleri
+│   │   │   ├── upload.py      # CSV yükleme
+│   │   │   ├── analysis.py    # Veri analizi
+│   │   │   └── ctgan.py       # CTGAN model API
 │   │   ├── services/      # İş mantığı
+│   │   │   ├── data_profiler.py   # İstatistiksel analiz
+│   │   │   ├── data_cleaner.py    # Veri temizleme
+│   │   │   └── ctgan_trainer.py   # CTGAN eğitimi
 │   │   └── main.py        # FastAPI uygulaması
 │   ├── uploads/           # Yüklenen CSV dosyaları
+│   ├── models/            # Eğitilmiş CTGAN modelleri
 │   └── requirements.txt
 ├── frontend/
+│   ├── components/
+│   │   ├── FileUpload.tsx       # Dosya yükleme UI
+│   │   ├── DataAnalysis.tsx     # Veri analiz UI
+│   │   └── CTGANManager.tsx     # CTGAN yönetim UI
 │   └── (Next.js yapısı)
 └── shared/
     └── (Ortak tipler ve yardımcılar)
@@ -88,18 +102,24 @@ MissingLink/
   - [x] FastAPI dosya yükleme endpoint'i
   - [x] Frontend ile backend entegrasyonu
   - [x] GitHub repository
-- [ ] **1.2 Şema Tanıma ve Veri Ön İşleme**
-  - [x] Pandas ile veri tipi analizi (temel)
-  - [ ] Null değerlerin temizlenmesi
-  - [ ] Detaylı istatistiksel profil
-- [ ] **1.3 CTGAN Model Entegrasyonu**
-  - [ ] CTGAN modeli eğitimi
-  - [ ] Sentetik veri üretimi
-  - [ ] Model performans değerlendirmesi
+- [x] **1.2 Şema Tanıma ve Veri Ön İşleme** ✅
+  - [x] Pandas ile veri tipi analizi
+  - [x] Detaylı istatistiksel profil (DataProfiler)
+  - [x] Null değerlerin temizlenmesi (DataCleaner)
+  - [x] Outlier tespiti ve temizleme
+  - [x] Normalizasyon ve encoding
+  - [x] Korelasyon analizi
+  - [x] Frontend veri analiz arayüzü
+- [x] **1.3 CTGAN Model Entegrasyonu** ✅
+  - [x] CTGAN modeli eğitimi (CTGANTrainer)
+  - [x] Sentetik veri üretimi
+  - [x] Model kaydetme/yükleme
+  - [x] Model performans değerlendirmesi
+  - [x] Frontend UI (eğitim, üretim, model yönetimi)
 
 ## 🎯 Başarı Kriteri
 
-Bir CSV yüklendiğinde, sistemin bu veriyi öğrenip benzer yapıda 1000 satır üretebilmesi.
+✅ **Tamamlandı!** Bir CSV yüklendiğinde, sistem bu veriyi öğrenip benzer yapıda 1000 satır (veya istenilen sayıda) üretebiliyor.
 
 ## 📝 Lisans
 
