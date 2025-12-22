@@ -2,6 +2,20 @@
 
 Gerçek verinin matematiksel ikizini oluşturmak için Deep Learning tabanlı sentetik veri üretim platformu.
 
+---
+
+## 🎬 Portfolio Demo
+
+**🌐 Live Frontend:** [https://missing-link-mk1wy5kca-emrahfidans-projects.vercel.app/](https://missing-link-mk1wy5kca-emrahfidans-projects.vercel.app/)
+
+**🎥 Demo Video:** [Coming Soon - YouTube/Loom Link]
+
+**💻 Source Code:** [GitHub Repository](https://github.com/EmrahFidan/MissingLink)
+
+> **Note:** Backend requires significant computational resources (PyTorch, CTGAN) and runs locally. See [Local Setup](#-hızlı-başlangıç) for full functionality demonstration.
+
+---
+
 ## 📋 Proje Açıklaması
 
 MissingLink, CSV tablolarının yapısını öğrenen ve benzer sentetik veri üreten kapsamlı bir sistemdir. CTGAN (Conditional GAN) modeli kullanarak, yüklenen CSV dosyalarının istatistiksel özelliklerini koruyarak yeni veri setleri üretir. PII tespiti, anonymization, differential privacy ve kalite değerlendirme özellikleriyle production-ready bir çözümdür.
