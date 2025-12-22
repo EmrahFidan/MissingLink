@@ -189,16 +189,23 @@ export default function FileUpload() {
       {/* Detailed Analysis */}
       {uploadResult && (
         <DataAnalysis filename={uploadResult.data.filename} />
-n      {/* CTGAN Manager */}
+      )}
+
+      {/* CTGAN Manager */}
       {uploadResult && (
         <CTGANManager filename={uploadResult.data.filename} />
+      )}
+
       {/* PII Manager */}
       {uploadResult && (
         <PIIManager filename={uploadResult.data.filename} />
+      )}
+
       {/* DP Manager */}
       {uploadResult && (
         <DPManager filename={uploadResult.data.filename} />
       )}
+
       {/* Validation Report */}
       {uploadResult && (
         <ValidationReport filename={uploadResult.data.filename} />
