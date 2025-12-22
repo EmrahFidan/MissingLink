@@ -203,12 +203,6 @@ n      {/* CTGAN Manager */}
       {uploadResult && (
         <ValidationReport filename={uploadResult.data.filename} />
       )}
-
-
-      )}
-
-      )}
-      )}
     </div>
   );
 }
