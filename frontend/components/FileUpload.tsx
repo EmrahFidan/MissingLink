@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import DataAnalysis from "./DataAnalysis";
 import CTGANManager from "./CTGANManager";
+import PIIManager from "./PIIManager";
 
 interface UploadResponse {
   message: string;
@@ -189,6 +190,11 @@ export default function FileUpload() {
 n      {/* CTGAN Manager */}
       {uploadResult && (
         <CTGANManager filename={uploadResult.data.filename} />
+      {/* PII Manager */}
+      {uploadResult && (
+        <PIIManager filename={uploadResult.data.filename} />
+      )}
+
       )}
       )}
     </div>
