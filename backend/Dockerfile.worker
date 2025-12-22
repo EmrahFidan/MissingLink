@@ -1,0 +1,39 @@
+# MissingLink Celery Worker Dockerfile
+# Faz 4.2: Async Task Workers
+
+FROM python:3.10-slim
+
+# Çalışma dizinini ayarla
+WORKDIR /app
+
+# Sistem bağımlılıklarını yükle
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    build-essential \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python bağımlılıklarını kopyala
+COPY requirements.txt .
+
+# Python paketlerini yükle
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# SpaCy modelini indir
+RUN python -m spacy download en_core_web_sm
+
+# Uygulama dosyalarını kopyala
+COPY . .
+
+# Gerekli dizinleri oluştur
+RUN mkdir -p uploads outputs models logs run
+
+# Environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV C_FORCE_ROOT=true
+
+# Celery worker başlatma komutu
+CMD ["celery", "-A", "app.celery_config:celery_app", "worker", "--loglevel=info", "--concurrency=2"]
