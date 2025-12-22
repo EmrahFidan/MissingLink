@@ -454,7 +454,7 @@ export default function DPManager({ filename }: DPManagerProps) {
                 }}
                 className="w-full mt-3 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
               >
-                Bu Epsilon'u Kullan
+                Bu Epsilon&apos;u Kullan
               </button>
             </div>
           )}

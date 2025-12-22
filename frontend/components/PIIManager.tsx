@@ -251,7 +251,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
         <div className="space-y-4">
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <p className="text-sm text-green-800">
-              <strong>Anonimleştirme:</strong> Tespit edilen PII'lar Faker
+              <strong>Anonimleştirme:</strong> Tespit edilen PII&apos;lar Faker
               kütüphanesi ile sentetik verilerle değiştirilir. Gerçek veriler
               korunur.
             </p>

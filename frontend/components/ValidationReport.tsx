@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface ValidationReportProps {
   filename: string;
@@ -23,11 +23,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
   // Sentetik dosyaları yükle
-  useEffect(() => {
-    loadSyntheticFiles();
-  }, []);
-
-  const loadSyntheticFiles = async () => {
+  const loadSyntheticFiles = useCallback(async () => {
     try {
       const response = await fetch(`${API_URL}/api/v1/synthetic-files`);
       const data = await response.json();
@@ -35,7 +31,11 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
     } catch (error) {
       console.error("Sentetik dosyalar yüklenemedi:", error);
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    loadSyntheticFiles();
+  }, [loadSyntheticFiles]);
 
   // Similarity raporu oluştur
   const handleGenerateSimilarity = async () => {
