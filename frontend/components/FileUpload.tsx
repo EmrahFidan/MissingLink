@@ -6,6 +6,7 @@ import DataAnalysis from "./DataAnalysis";
 import CTGANManager from "./CTGANManager";
 import PIIManager from "./PIIManager";
 import DPManager from "./DPManager";
+import ValidationReport from "./ValidationReport";
 
 interface UploadResponse {
   message: string;
@@ -198,6 +199,11 @@ n      {/* CTGAN Manager */}
       {uploadResult && (
         <DPManager filename={uploadResult.data.filename} />
       )}
+      {/* Validation Report */}
+      {uploadResult && (
+        <ValidationReport filename={uploadResult.data.filename} />
+      )}
+
 
       )}
 
