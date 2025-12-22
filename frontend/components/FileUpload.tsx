@@ -5,6 +5,7 @@ import axios from "axios";
 import DataAnalysis from "./DataAnalysis";
 import CTGANManager from "./CTGANManager";
 import PIIManager from "./PIIManager";
+import DPManager from "./DPManager";
 
 interface UploadResponse {
   message: string;
@@ -193,6 +194,11 @@ n      {/* CTGAN Manager */}
       {/* PII Manager */}
       {uploadResult && (
         <PIIManager filename={uploadResult.data.filename} />
+      {/* DP Manager */}
+      {uploadResult && (
+        <DPManager filename={uploadResult.data.filename} />
+      )}
+
       )}
 
       )}
