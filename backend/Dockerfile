@@ -21,9 +21,6 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# SpaCy modelini indir
-RUN python -m spacy download en_core_web_sm
-
 # Uygulama dosyalarını kopyala
 COPY . .
 
