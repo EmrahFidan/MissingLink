@@ -15,13 +15,20 @@ from sdv.metadata import SingleTableMetadata
 class CTGANTrainer:
     """CTGAN modelini eğiten ve sentetik veri üreten servis"""
 
-    def __init__(self, file_path: str):
+    def __init__(self, data):
         """
         Args:
-            file_path: Eğitim için kullanılacak CSV dosyasının yolu
+            data: Eğitim için kullanılacak CSV dosya yolu (str) veya DataFrame
         """
-        self.file_path = Path(file_path)
-        self.df = pd.read_csv(file_path)
+        if isinstance(data, (str, Path)):
+            self.file_path = Path(data)
+            self.df = pd.read_csv(data)
+        elif isinstance(data, pd.DataFrame):
+            self.file_path = None
+            self.df = data
+        else:
+            raise ValueError("data parametresi str, Path veya DataFrame olmalı")
+
         self.metadata = None
         self.synthesizer = None
         self.training_stats = {}

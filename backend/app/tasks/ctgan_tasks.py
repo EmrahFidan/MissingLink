@@ -56,6 +56,9 @@ def train_ctgan_async(
     Returns:
         Training result dictionary
     """
+    import threading
+    import time
+
     try:
         # Update task state
         self.update_state(
@@ -72,19 +75,49 @@ def train_ctgan_async(
 
         self.update_state(
             state='PROGRESS',
-            meta={'current': 0, 'total': epochs, 'status': 'Model oluşturuluyor...'}
+            meta={'current': 10, 'total': epochs, 'status': 'Model oluşturuluyor...'}
         )
 
         # Create trainer
         trainer = CTGANTrainer(df)
 
-        # Train model with progress updates
+        # Progress simulation thread
+        training_complete = threading.Event()
+        current_epoch = {'value': 10}
+
+        def simulate_progress():
+            """Simulate training progress"""
+            while not training_complete.is_set():
+                time.sleep(2)  # Update every 2 seconds
+                if current_epoch['value'] < epochs - 10:
+                    # Increment progress (simulate epoch completion)
+                    increment = max(1, int(epochs * 0.03))  # ~3% per update
+                    current_epoch['value'] = min(current_epoch['value'] + increment, epochs - 10)
+
+                    self.update_state(
+                        state='PROGRESS',
+                        meta={
+                            'current': current_epoch['value'],
+                            'total': epochs,
+                            'status': f'Model eğitiliyor... Epoch {current_epoch["value"]}/{epochs}'
+                        }
+                    )
+
+        # Start progress simulation
+        progress_thread = threading.Thread(target=simulate_progress, daemon=True)
+        progress_thread.start()
+
+        # Train model
         result = trainer.train_model(
             epochs=epochs,
             batch_size=batch_size,
             generator_dim=generator_dim,
             discriminator_dim=discriminator_dim
         )
+
+        # Stop progress simulation
+        training_complete.set()
+        progress_thread.join(timeout=1)
 
         self.update_state(
             state='PROGRESS',
