@@ -250,7 +250,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                     epochs: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
+                className="w-full px-4 py-3 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-lg hover:border-primary-500/50 focus:border-primary-500 transition-colors duration-200 font-medium"
               />
             </div>
             <div>
@@ -268,7 +268,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                     batch_size: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
+                className="w-full px-4 py-3 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-lg hover:border-primary-500/50 focus:border-primary-500 transition-colors duration-200 font-medium"
               />
             </div>
           </div>
@@ -369,7 +369,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                   num_rows: parseInt(e.target.value),
                 })
               }
-              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
+              className="w-full px-4 py-3 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-lg hover:border-primary-500/50 focus:border-primary-500 transition-colors duration-200 font-medium"
             />
           </div>
 
