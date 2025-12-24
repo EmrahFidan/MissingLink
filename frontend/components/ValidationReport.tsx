@@ -164,9 +164,9 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
               {/* Overall Score */}
               <div className={`p-6 rounded-lg border-2 ${
                 similarityReport.overall_similarity >= 0.75
-                  ? "bg-green-50 border-green-300"
+                  ? "glass-effect border border-secondary-500/30 bg-secondary-500/5"
                   : similarityReport.overall_similarity >= 0.5
-                  ? "bg-yellow-50 border-yellow-300"
+                  ? "glass-effect border border-accent-500/30 bg-accent-500/5"
                   : "bg-red-50 border-red-300"
               }`}>
                 <div className="text-center">
@@ -183,7 +183,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
               </div>
 
               {/* Column Similarities */}
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-dark-900/40 rounded-lg border border-dark-700 p-4">
                 <h3 className="font-bold mb-3">Column-Level Similarities</h3>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {Object.entries(similarityReport.column_similarities || {}).map(
@@ -191,7 +191,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
                       <div key={col} className="flex items-center justify-between p-2 bg-white rounded">
                         <span className="font-medium">{col}</span>
                         <div className="flex items-center gap-2">
-                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                          <div className="w-32 bg-dark-700 rounded-full h-2">
                             <div
                               className="bg-primary-600 h-2 rounded-full"
                               style={{ width: `${data.similarity_score * 100}%` }}
@@ -240,9 +240,9 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
               {/* Overall Utility Score */}
               <div className={`p-6 rounded-lg border-2 ${
                 utilityReport.utility_score >= 0.75
-                  ? "bg-green-50 border-green-300"
+                  ? "glass-effect border border-secondary-500/30 bg-secondary-500/5"
                   : utilityReport.utility_score >= 0.5
-                  ? "bg-yellow-50 border-yellow-300"
+                  ? "glass-effect border border-accent-500/30 bg-accent-500/5"
                   : "bg-red-50 border-red-300"
               }`}>
                 <div className="text-center">
@@ -260,7 +260,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
 
               {/* Model Comparison */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-lg p-4">
                   <h4 className="font-bold mb-2">Orijinal Veri ile Eğitilmiş</h4>
                   {utilityReport.task_type === "classification" ? (
                     <div className="text-sm space-y-1">
@@ -291,7 +291,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
                 </div>
               </div>
 
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+              <div className="glass-effect border border-dark-700 rounded-lg p-4">
                 <p className="font-bold mb-1">Öneri:</p>
                 <p className="text-sm">{utilityReport.assessment?.recommendation}</p>
               </div>
