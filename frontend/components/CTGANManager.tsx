@@ -53,15 +53,26 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
-  // Model eğitimi (Gerçek async API ile)
+  // Model eğitimi
   const handleTrainModel = async () => {
     setIsTraining(true);
     setTrainingResult(null);
     setTrainingProgress(0);
 
+    // Smooth progress simulation
+    const progressInterval = setInterval(() => {
+      setTrainingProgress(prev => {
+        if (prev >= 95) {
+          clearInterval(progressInterval);
+          return 95;
+        }
+        // Slower, more realistic progress
+        return prev + Math.random() * 5;
+      });
+    }, 800);
+
     try {
-      // Start async training task
-      const startResponse = await fetch(`${API_URL}/api/v1/async/train`, {
+      const response = await fetch(`${API_URL}/api/v1/train`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,48 +83,29 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
         }),
       });
 
-      if (!startResponse.ok) {
-        throw new Error("Model eğitimi başlatılamadı");
+      if (!response.ok) {
+        clearInterval(progressInterval);
+        throw new Error("Model eğitimi başarısız oldu");
       }
 
-      const { task_id } = await startResponse.json();
+      const data = await response.json();
+      clearInterval(progressInterval);
+      setTrainingProgress(100);
 
-      // Poll for progress
-      const pollInterval = setInterval(async () => {
-        try {
-          const statusResponse = await fetch(`${API_URL}/api/v1/async/task/${task_id}`);
-          const statusData = await statusResponse.json();
+      setTimeout(() => {
+        setTrainingResult(data);
+      }, 300);
 
-          // Update progress from backend
-          if (statusData.state === 'PROGRESS' && statusData.progress) {
-            const { current, total } = statusData.progress;
-            const percentage = (current / total) * 100;
-            setTrainingProgress(percentage);
-          } else if (statusData.state === 'SUCCESS') {
-            clearInterval(pollInterval);
-            setTrainingProgress(100);
-            setTimeout(() => {
-              setTrainingResult(statusData.result);
-            }, 300);
-            await loadModels();
-            setTimeout(() => {
-              setIsTraining(false);
-              setTrainingProgress(0);
-            }, 1000);
-          } else if (statusData.state === 'FAILURE') {
-            clearInterval(pollInterval);
-            throw new Error(statusData.error || "Model eğitimi başarısız oldu");
-          }
-        } catch (pollError: any) {
-          clearInterval(pollInterval);
-          throw pollError;
-        }
-      }, 1000); // Poll every 1 second
-
+      await loadModels();
     } catch (error: any) {
+      clearInterval(progressInterval);
       setTrainingProgress(0);
-      setIsTraining(false);
       alert("Hata: " + error.message);
+    } finally {
+      setTimeout(() => {
+        setIsTraining(false);
+        setTrainingProgress(0);
+      }, 1000);
     }
   };
 
