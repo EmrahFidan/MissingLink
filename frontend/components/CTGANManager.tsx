@@ -349,13 +349,13 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
               </button>
 
               {generateResult.evaluation && (
-                <div className="mt-4 p-3 bg-white rounded border">
-                  <h4 className="font-bold mb-2">Kalite Değerlendirmesi</h4>
-                  <p className="text-sm">
+                <div className="mt-4 p-3 bg-dark-900/40 rounded-lg border border-dark-700">
+                  <h4 className="font-bold mb-2 text-dark-50">Kalite Değerlendirmesi</h4>
+                  <p className="text-sm text-dark-200">
                     <strong>Tamamlanma Skoru:</strong>{" "}
                     {generateResult.evaluation.data_quality?.completeness_score}%
                   </p>
-                  <p className="text-sm">
+                  <p className="text-sm text-dark-200">
                     <strong>Null Yüzdesi:</strong>{" "}
                     {generateResult.evaluation.data_quality?.null_percentage}%
                   </p>
