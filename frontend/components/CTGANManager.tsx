@@ -376,7 +376,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
               {models.map((model) => (
                 <div
                   key={model.model_id}
-                  className="p-4 border border-gray-200 rounded-md hover:bg-gray-50"
+                  className="p-4 glass-effect border border-dark-700 rounded-lg hover:bg-dark-900/60"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">

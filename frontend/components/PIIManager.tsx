@@ -147,7 +147,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
       {/* Detect Tab */}
       {activeTab === "detect" && (
         <div className="space-y-4">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-lg p-4">
             <p className="text-sm text-blue-800">
               <strong>PII (Personally Identifiable Information):</strong> İsim,
               e-posta, telefon gibi kişisel veriler tespit edilir ve KVKK uyumu
@@ -166,7 +166,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           {/* PII Report */}
           {piiReport && (
             <div className="mt-6 space-y-4">
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+              <div className="glass-effect border border-dark-700 rounded-lg p-4">
                 <h3 className="font-bold text-lg mb-3">Tespit Sonuçları</h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -211,7 +211,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                     >
                       <div className="flex items-center gap-2 mb-3">
                         <h4 className="font-bold">{sample.column}</h4>
-                        <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
+                        <span className="bg-primary-500/20 text-primary-300 border border-primary-500/30 text-xs px-2 py-1 rounded">
                           {sample.pii_type}
                         </span>
                       </div>
@@ -249,7 +249,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
       {/* Anonymize Tab */}
       {activeTab === "anonymize" && (
         <div className="space-y-4">
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-lg p-4">
             <p className="text-sm text-green-800">
               <strong>Anonimleştirme:</strong> Tespit edilen PII&apos;lar Faker
               kütüphanesi ile sentetik verilerle değiştirilir. Gerçek veriler
@@ -271,7 +271,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                     className={`px-3 py-1 rounded text-sm ${
                       selectedColumns.includes(col)
                         ? "bg-primary-600 text-white"
-                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        : "bg-dark-900/40 text-dark-200 hover:bg-dark-900/60 border border-dark-600"
                     }`}
                   >
                     {col}
@@ -305,7 +305,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
 
           {/* Anonymize Result */}
           {anonymizeResult && (
-            <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
+            <div className="mt-6 p-4 glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-md">
               <h3 className="font-bold text-green-800 mb-2">
                 ✅ Anonimleştirme Tamamlandı!
               </h3>
