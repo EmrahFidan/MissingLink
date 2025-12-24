@@ -38,16 +38,27 @@ export default function PIIManager({ filename }: PIIManagerProps) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
-  // PII tespiti (Gerçek async API ile)
+  // PII tespiti (Simulated progress ile)
   const handleDetectPII = async () => {
     setIsDetecting(true);
     setPiiReport(null);
     setPiiPreview(null);
     setDetectionProgress(0);
 
+    // Smooth progress simulation
+    const progressInterval = setInterval(() => {
+      setDetectionProgress(prev => {
+        if (prev >= 95) {
+          clearInterval(progressInterval);
+          return 95;
+        }
+        // Slower, more realistic progress
+        return prev + Math.random() * 5;
+      });
+    }, 800);
+
     try {
-      // Start async detection task
-      const startResponse = await fetch(`${API_URL}/api/v1/async/detect-pii`, {
+      const response = await fetch(`${API_URL}/api/v1/detect-pii`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,58 +69,52 @@ export default function PIIManager({ filename }: PIIManagerProps) {
         }),
       });
 
-      if (!startResponse.ok) {
-        throw new Error("PII tespiti başlatılamadı");
+      if (!response.ok) {
+        clearInterval(progressInterval);
+        throw new Error("PII tespiti başarısız oldu");
       }
 
-      const { task_id } = await startResponse.json();
+      const data = await response.json();
+      clearInterval(progressInterval);
+      setDetectionProgress(100);
 
-      // Poll for progress
-      const pollInterval = setInterval(async () => {
-        try {
-          const statusResponse = await fetch(`${API_URL}/api/v1/async/task/${task_id}`);
-          const statusData = await statusResponse.json();
-
-          // Update progress from backend
-          if (statusData.state === 'PROGRESS' && statusData.progress) {
-            const { current, total } = statusData.progress;
-            const percentage = (current / total) * 100;
-            setDetectionProgress(percentage);
-          } else if (statusData.state === 'SUCCESS') {
-            clearInterval(pollInterval);
-            setDetectionProgress(100);
-            setPiiReport(statusData.result.pii_report);
-            setPiiPreview(statusData.result.preview);
-            setTimeout(() => {
-              setIsDetecting(false);
-              setDetectionProgress(0);
-            }, 1000);
-          } else if (statusData.state === 'FAILURE') {
-            clearInterval(pollInterval);
-            throw new Error(statusData.error || "PII tespiti başarısız oldu");
-          }
-        } catch (pollError: any) {
-          clearInterval(pollInterval);
-          throw pollError;
-        }
-      }, 1000);
+      setTimeout(() => {
+        setPiiReport(data.pii_report);
+        setPiiPreview(data.preview);
+      }, 300);
 
     } catch (error: any) {
+      clearInterval(progressInterval);
       setDetectionProgress(0);
-      setIsDetecting(false);
       alert("Hata: " + error.message);
+    } finally {
+      setTimeout(() => {
+        setIsDetecting(false);
+        setDetectionProgress(0);
+      }, 1000);
     }
   };
 
-  // Anonimleştirme (Gerçek async API ile)
+  // Anonimleştirme (Simulated progress ile)
   const handleAnonymize = async () => {
     setIsAnonymizing(true);
     setAnonymizeResult(null);
     setAnonymizationProgress(0);
 
+    // Smooth progress simulation
+    const progressInterval = setInterval(() => {
+      setAnonymizationProgress(prev => {
+        if (prev >= 95) {
+          clearInterval(progressInterval);
+          return 95;
+        }
+        // Slower, more realistic progress
+        return prev + Math.random() * 5;
+      });
+    }, 800);
+
     try {
-      // Start async anonymization task
-      const startResponse = await fetch(`${API_URL}/api/v1/async/anonymize`, {
+      const response = await fetch(`${API_URL}/api/v1/anonymize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,45 +127,28 @@ export default function PIIManager({ filename }: PIIManagerProps) {
         }),
       });
 
-      if (!startResponse.ok) {
-        throw new Error("Anonimleştirme başlatılamadı");
+      if (!response.ok) {
+        clearInterval(progressInterval);
+        throw new Error("Anonimleştirme başarısız oldu");
       }
 
-      const { task_id } = await startResponse.json();
+      const data = await response.json();
+      clearInterval(progressInterval);
+      setAnonymizationProgress(100);
 
-      // Poll for progress
-      const pollInterval = setInterval(async () => {
-        try {
-          const statusResponse = await fetch(`${API_URL}/api/v1/async/task/${task_id}`);
-          const statusData = await statusResponse.json();
-
-          // Update progress from backend
-          if (statusData.state === 'PROGRESS' && statusData.progress) {
-            const { current, total } = statusData.progress;
-            const percentage = (current / total) * 100;
-            setAnonymizationProgress(percentage);
-          } else if (statusData.state === 'SUCCESS') {
-            clearInterval(pollInterval);
-            setAnonymizationProgress(100);
-            setAnonymizeResult(statusData.result);
-            setTimeout(() => {
-              setIsAnonymizing(false);
-              setAnonymizationProgress(0);
-            }, 1000);
-          } else if (statusData.state === 'FAILURE') {
-            clearInterval(pollInterval);
-            throw new Error(statusData.error || "Anonimleştirme başarısız oldu");
-          }
-        } catch (pollError: any) {
-          clearInterval(pollInterval);
-          throw pollError;
-        }
-      }, 1000);
+      setTimeout(() => {
+        setAnonymizeResult(data);
+      }, 300);
 
     } catch (error: any) {
+      clearInterval(progressInterval);
       setAnonymizationProgress(0);
-      setIsAnonymizing(false);
       alert("Hata: " + error.message);
+    } finally {
+      setTimeout(() => {
+        setIsAnonymizing(false);
+        setAnonymizationProgress(0);
+      }, 1000);
     }
   };
 
