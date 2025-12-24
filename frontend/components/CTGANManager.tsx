@@ -166,7 +166,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "train"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Model Eğit
@@ -179,7 +179,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "generate"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Veri Üret
@@ -192,7 +192,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "models"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Modeller
@@ -244,7 +244,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           <button
             onClick={handleTrainModel}
             disabled={isTraining}
-            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isTraining ? "Eğitiliyor..." : "Modeli Eğit"}
           </button>
@@ -319,7 +319,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
               }
               className="mr-2"
             />
-            <label htmlFor="evaluate" className="text-sm text-gray-700">
+            <label htmlFor="evaluate" className="text-sm text-dark-200">
               Kalite değerlendirmesi yap
             </label>
           </div>
@@ -327,7 +327,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           <button
             onClick={handleGenerateData}
             disabled={isGenerating || !generateParams.model_id}
-            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isGenerating ? "Üretiliyor..." : "Sentetik Veri Üret"}
           </button>
@@ -370,7 +370,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
       {activeTab === "models" && (
         <div className="space-y-4">
           {models.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">Henüz eğitilmiş model yok</p>
+            <p className="text-dark-400 text-center py-8">Henüz eğitilmiş model yok</p>
           ) : (
             <div className="space-y-3">
               {models.map((model) => (
@@ -382,7 +382,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                     <div className="flex-1">
                       <h4 className="font-bold text-lg">{model.model_id}</h4>
                       {model.training_stats && (
-                        <div className="text-sm text-gray-600 mt-2 space-y-1">
+                        <div className="text-sm text-dark-300 mt-2 space-y-1">
                           <p>
                             <strong>Eğitim Tarihi:</strong>{" "}
                             {new Date(model.training_stats.trained_at).toLocaleString('tr-TR')}

@@ -107,13 +107,13 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
 
       {/* Sentetik dosya seçimi */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-dark-200 mb-2">
           Karşılaştırılacak Sentetik Dosya
         </label>
         <select
           value={selectedSynthetic}
           onChange={(e) => setSelectedSynthetic(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
         >
           <option value="">Sentetik dosya seçin...</option>
           {syntheticFiles.map((file) => (
@@ -131,7 +131,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "similarity"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Similarity Report
@@ -141,7 +141,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "utility"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Utility Score
@@ -154,7 +154,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           <button
             onClick={handleGenerateSimilarity}
             disabled={isGeneratingSimilarity || !selectedSynthetic}
-            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isGeneratingSimilarity ? "Oluşturuluyor..." : "Similarity Report Oluştur"}
           </button>
@@ -167,10 +167,10 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
                   ? "glass-effect border border-secondary-500/30 bg-secondary-500/5"
                   : similarityReport.overall_similarity >= 0.5
                   ? "glass-effect border border-accent-500/30 bg-accent-500/5"
-                  : "bg-red-50 border-red-300"
+                  : "glass-effect border border-red-500/30 bg-red-500/10"
               }`}>
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-2">Overall Similarity</p>
+                  <p className="text-sm text-dark-300 mb-2">Overall Similarity</p>
                   <p className="text-5xl font-bold mb-2">
                     {(similarityReport.overall_similarity * 100).toFixed(1)}%
                   </p>
@@ -215,7 +215,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
       {activeTab === "utility" && (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Target Column (ML için)
             </label>
             <input
@@ -223,14 +223,14 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
               placeholder="Örn: age, salary, category"
               value={targetColumn}
               onChange={(e) => setTargetColumn(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             />
           </div>
 
           <button
             onClick={handleGenerateUtility}
             disabled={isGeneratingUtility || !selectedSynthetic || !targetColumn}
-            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isGeneratingUtility ? "Hesaplanıyor..." : "Utility Score Hesapla"}
           </button>
@@ -243,10 +243,10 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
                   ? "glass-effect border border-secondary-500/30 bg-secondary-500/5"
                   : utilityReport.utility_score >= 0.5
                   ? "glass-effect border border-accent-500/30 bg-accent-500/5"
-                  : "bg-red-50 border-red-300"
+                  : "glass-effect border border-red-500/30 bg-red-500/10"
               }`}>
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-2">Utility Score</p>
+                  <p className="text-sm text-dark-300 mb-2">Utility Score</p>
                   <p className="text-5xl font-bold mb-2">
                     {(utilityReport.utility_score * 100).toFixed(1)}%
                   </p>
