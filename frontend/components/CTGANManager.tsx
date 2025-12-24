@@ -156,8 +156,8 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <h2 className="text-2xl font-bold mb-6">CTGAN Model Yönetimi</h2>
+    <div className="glass-effect rounded-xl border border-dark-700 p-6 mt-6">
+      <h2 className="text-2xl font-bold text-dark-50 mb-6">CTGAN Model Yönetimi</h2>
 
       {/* Tabs */}
       <div className="flex space-x-4 mb-6 border-b">
@@ -165,7 +165,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           onClick={() => setActiveTab("train")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "train"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -178,7 +178,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           }}
           className={`pb-2 px-4 font-medium ${
             activeTab === "generate"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -191,7 +191,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           }}
           className={`pb-2 px-4 font-medium ${
             activeTab === "models"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -204,7 +204,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-200 mb-2">
                 Epoch Sayısı
               </label>
               <input
@@ -218,11 +218,11 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                     epochs: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-200 mb-2">
                 Batch Size
               </label>
               <input
@@ -236,7 +236,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                     batch_size: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
               />
             </div>
           </div>
@@ -244,14 +244,14 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           <button
             onClick={handleTrainModel}
             disabled={isTraining}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {isTraining ? "Eğitiliyor..." : "Modeli Eğit"}
           </button>
 
           {trainingResult && (
-            <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
-              <h3 className="font-bold text-green-800 mb-2">Eğitim Tamamlandı!</h3>
+            <div className="mt-6 p-4 glass-effect border border-primary-500/30 bg-primary-500/5 rounded-md">
+              <h3 className="font-bold text-primary-300 mb-2">Eğitim Tamamlandı!</h3>
               <div className="text-sm space-y-1">
                 <p><strong>Model ID:</strong> {trainingResult.model_id}</p>
                 <p><strong>Süre:</strong> {trainingResult.training_stats?.training_duration_minutes?.toFixed(2)} dakika</p>
@@ -268,7 +268,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
       {activeTab === "generate" && (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Model Seç
             </label>
             <select
@@ -276,7 +276,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
               onChange={(e) =>
                 setGenerateParams({ ...generateParams, model_id: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             >
               <option value="">Model seçin...</option>
               {models.map((model) => (
@@ -288,7 +288,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Satır Sayısı
             </label>
             <input
@@ -302,7 +302,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
                   num_rows: parseInt(e.target.value),
                 })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             />
           </div>
 
@@ -327,14 +327,14 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
           <button
             onClick={handleGenerateData}
             disabled={isGenerating || !generateParams.model_id}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {isGenerating ? "Üretiliyor..." : "Sentetik Veri Üret"}
           </button>
 
           {generateResult && (
-            <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
-              <h3 className="font-bold text-green-800 mb-2">Veri Üretildi!</h3>
+            <div className="mt-6 p-4 glass-effect border border-primary-500/30 bg-primary-500/5 rounded-md">
+              <h3 className="font-bold text-primary-300 mb-2">Veri Üretildi!</h3>
               <div className="text-sm space-y-1 mb-4">
                 <p><strong>Dosya:</strong> {generateResult.filename}</p>
                 <p><strong>Satır Sayısı:</strong> {generateResult.rows_generated}</p>
@@ -343,7 +343,7 @@ export default function CTGANManager({ filename }: CTGANManagerProps) {
 
               <button
                 onClick={() => handleDownloadData(generateResult.filename)}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700"
               >
                 İndir
               </button>

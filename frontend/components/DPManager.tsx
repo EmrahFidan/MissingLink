@@ -166,8 +166,8 @@ export default function DPManager({ filename }: DPManagerProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <h2 className="text-2xl font-bold mb-6">
+    <div className="glass-effect rounded-xl border border-dark-700 p-6 mt-6">
+      <h2 className="text-2xl font-bold text-dark-50 mb-6">
         🔒 Differential Privacy (Diferansiyel Gizlilik)
       </h2>
 
@@ -177,7 +177,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           onClick={() => setActiveTab("apply")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "apply"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -187,7 +187,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           onClick={() => setActiveTab("k-anonymity")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "k-anonymity"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -197,7 +197,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           onClick={() => setActiveTab("recommendation")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "recommendation"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -229,7 +229,7 @@ export default function DPManager({ filename }: DPManagerProps) {
 
           {/* Epsilon Slider */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Epsilon (ε) - Privacy Budget
             </label>
             <input
@@ -249,7 +249,7 @@ export default function DPManager({ filename }: DPManagerProps) {
 
           {/* Mechanism Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Gürültü Mekanizması
             </label>
             <div className="flex gap-4">
@@ -257,7 +257,7 @@ export default function DPManager({ filename }: DPManagerProps) {
                 onClick={() => setMechanism("laplace")}
                 className={`flex-1 py-2 px-4 rounded border ${
                   mechanism === "laplace"
-                    ? "bg-blue-600 text-white border-blue-600"
+                    ? "bg-primary-600 text-white border-blue-600"
                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                 }`}
               >
@@ -267,7 +267,7 @@ export default function DPManager({ filename }: DPManagerProps) {
                 onClick={() => setMechanism("gaussian")}
                 className={`flex-1 py-2 px-4 rounded border ${
                   mechanism === "gaussian"
-                    ? "bg-blue-600 text-white border-blue-600"
+                    ? "bg-primary-600 text-white border-blue-600"
                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                 }`}
               >
@@ -315,7 +315,7 @@ export default function DPManager({ filename }: DPManagerProps) {
 
               <button
                 onClick={() => handleDownload(dpResult.dp_path)}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700"
               >
                 İndir
               </button>
@@ -335,7 +335,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               K Değeri (Minimum Grup Büyüklüğü)
             </label>
             <input
@@ -344,19 +344,19 @@ export default function DPManager({ filename }: DPManagerProps) {
               max="100"
               value={kValue}
               onChange={(e) => setKValue(parseInt(e.target.value))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Quasi-Identifier Sütunlar (Örnek: age, zipcode, gender)
             </label>
             <input
               type="text"
               placeholder="Virgülle ayırın: age,city,gender"
               onChange={(e) => setQuasiIdentifiers(e.target.value.split(",").map(s => s.trim()))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             />
           </div>
 
@@ -402,13 +402,13 @@ export default function DPManager({ filename }: DPManagerProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Veri Hassasiyeti
             </label>
             <select
               value={dataSensitivity}
               onChange={(e) => setDataSensitivity(e.target.value as any)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             >
               <option value="low">Düşük (Genel istatistikler)</option>
               <option value="medium">Orta (Kişisel veriler)</option>
@@ -417,13 +417,13 @@ export default function DPManager({ filename }: DPManagerProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-200 mb-2">
               Kullanım Senaryosu
             </label>
             <select
               value={useCase}
               onChange={(e) => setUseCase(e.target.value as any)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border border-dark-600 bg-dark-900/40 text-dark-50 rounded-md"
             >
               <option value="research">Araştırma</option>
               <option value="production">Production Sistemi</option>
@@ -433,7 +433,7 @@ export default function DPManager({ filename }: DPManagerProps) {
 
           <button
             onClick={handleGetRecommendation}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 font-medium"
           >
             Öneri Al
           </button>
@@ -452,7 +452,7 @@ export default function DPManager({ filename }: DPManagerProps) {
                   setEpsilon(recommendation.recommended_epsilon);
                   setActiveTab("apply");
                 }}
-                className="w-full mt-3 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+                className="w-full mt-3 bg-secondary-600 text-white py-2 px-4 rounded-md hover:bg-secondary-700"
               >
                 Bu Epsilon&apos;u Kullan
               </button>
