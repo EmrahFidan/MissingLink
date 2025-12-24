@@ -188,7 +188,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {Object.entries(similarityReport.column_similarities || {}).map(
                     ([col, data]: [string, any]) => (
-                      <div key={col} className="flex items-center justify-between p-2 bg-white rounded">
+                      <div key={col} className="flex items-center justify-between p-2 bg-dark-900/40 rounded-lg border border-dark-700">
                         <span className="font-medium">{col}</span>
                         <div className="flex items-center gap-2">
                           <div className="w-32 bg-dark-700 rounded-full h-2">
