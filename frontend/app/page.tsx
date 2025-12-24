@@ -13,23 +13,23 @@ export default function Home() {
         {/* Header */}
         <header className="text-center mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 rounded-full glass-effect">
-            <div className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div>
-            <span className="text-dark-300 text-sm font-medium">AI-Powered Synthetic Data Platform</span>
+            <div className="w-2 h-2 rounded-full bg-primary-400 animate-pulse"></div>
+            <span className="text-dark-200 text-sm font-medium">AI-Powered Synthetic Data Engine</span>
           </div>
 
           <h1 className="text-5xl lg:text-7xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-primary-400 via-primary-500 to-secondary-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-300 via-primary-400 to-secondary-400 bg-clip-text text-transparent">
               MissingLink
             </span>
           </h1>
 
-          <p className="text-xl lg:text-2xl text-dark-200 mb-4 font-light">
-            Deep Learning Tabanlı Sentetik Veri Motoru
+          <p className="text-xl lg:text-2xl text-dark-100 mb-4 font-light">
+            Production-Grade Sentetik Veri Platformu
           </p>
 
-          <p className="text-dark-400 max-w-2xl mx-auto leading-relaxed">
-            CSV tablolarınızdan CTGAN ile matematiksel olarak benzer,
-            <span className="text-primary-400 font-medium"> gizlilik korumalı </span>
+          <p className="text-dark-300 max-w-2xl mx-auto leading-relaxed">
+            CSV tablolarınızdan CTGAN ile matematiksel olarak tutarlı,
+            <span className="text-primary-300 font-medium"> GDPR uyumlu </span>
             sentetik veriler üretin
           </p>
         </header>
@@ -89,11 +89,11 @@ export default function Home() {
         </div>
 
         {/* Stats */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="grid grid-cols-3 gap-8 glass-effect rounded-2xl p-8 text-center">
-            <StatCard value="82.6%" label="Ortalama Benzerlik" />
-            <StatCard value="<100ms" label="API Yanıt Süresi" />
-            <StatCard value="99.9%" label="Veri Kalitesi" />
+        <div className="mt-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <StatCard value="82.6%" label="Similarity Score" sublabel="Statistical Validation" />
+            <StatCard value="<100ms" label="API Response Time" sublabel="Production Ready" />
+            <StatCard value="GDPR" label="Privacy Compliant" sublabel="k-anonymity + DP" />
           </div>
         </div>
       </div>
@@ -128,11 +128,14 @@ function FeatureCard({
   );
 }
 
-function StatCard({ value, label }: { value: string; label: string }) {
+function StatCard({ value, label, sublabel }: { value: string; label: string; sublabel?: string }) {
   return (
-    <div>
-      <div className="text-3xl font-bold text-primary-400 mb-2">{value}</div>
-      <div className="text-sm text-dark-400 font-medium">{label}</div>
+    <div className="glass-effect rounded-xl p-6 border border-dark-700">
+      <div className="text-4xl lg:text-5xl font-bold text-primary-300 mb-3 font-mono">{value}</div>
+      <div className="text-base text-dark-100 font-semibold mb-1">{label}</div>
+      {sublabel && (
+        <div className="text-xs text-dark-400 font-medium">{sublabel}</div>
+      )}
     </div>
   );
 }

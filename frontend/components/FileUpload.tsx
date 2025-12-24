@@ -27,9 +27,9 @@ interface UploadResponse {
 
 function MetricCard({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
   return (
-    <div className="bg-dark-900/50 rounded-lg p-4 border border-dark-700">
-      <p className="text-dark-400 text-xs mb-1">{label}</p>
-      <p className={`text-dark-100 font-semibold ${mono ? 'font-mono text-sm' : 'text-lg'} truncate`}>
+    <div className="bg-dark-900/40 rounded-lg p-4 border border-dark-700/50">
+      <p className="text-dark-300 text-xs mb-1.5 uppercase tracking-wide">{label}</p>
+      <p className={`text-dark-50 font-semibold ${mono ? 'font-mono text-sm' : 'text-base'} truncate`}>
         {value}
       </p>
     </div>
@@ -93,9 +93,9 @@ export default function FileUpload() {
   return (
     <div className="space-y-6">
       {/* Upload Area */}
-      <div className="border-2 border-dashed border-dark-700 rounded-xl p-8 text-center hover:border-primary-500 hover:bg-dark-900/30 transition-all duration-300 group">
+      <div className="border-2 border-dashed border-dark-700 rounded-xl p-8 text-center hover:border-primary-400 hover:bg-dark-900/30 transition-all duration-300 group">
         <div className="space-y-4">
-          <div className="text-primary-400 group-hover:scale-110 transition-transform">
+          <div className="text-primary-300 group-hover:scale-105 transition-transform">
             <svg className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
@@ -103,7 +103,7 @@ export default function FileUpload() {
           <div>
             <label
               htmlFor="file-upload"
-              className="cursor-pointer text-primary-400 hover:text-primary-300 font-semibold text-lg transition-colors"
+              className="cursor-pointer text-primary-300 hover:text-primary-200 font-semibold text-lg transition-colors"
             >
               CSV Dosyası Seç
             </label>
@@ -124,14 +124,14 @@ export default function FileUpload() {
           {file && (
             <div className="glass-effect rounded-lg p-4 inline-block border border-dark-700">
               <div className="flex items-center gap-3">
-                <svg className="w-8 h-8 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-8 h-8 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <div className="text-left">
-                  <p className="text-sm font-medium text-dark-100">
+                  <p className="text-sm font-medium text-dark-50">
                     {file.name}
                   </p>
-                  <p className="text-xs text-dark-400">
+                  <p className="text-xs text-dark-300">
                     {(file.size / (1024 * 1024)).toFixed(2)} MB
                   </p>
                 </div>
@@ -146,7 +146,7 @@ export default function FileUpload() {
         <button
           onClick={handleUpload}
           disabled={uploading}
-          className="w-full bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-glow-md relative overflow-hidden group"
+          className="w-full bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl relative overflow-hidden group border border-primary-500/20"
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
             {uploading ? (
@@ -187,16 +187,16 @@ export default function FileUpload() {
 
       {/* Success Display */}
       {uploadResult && (
-        <div className="glass-effect border-2 border-primary-500/30 rounded-xl p-6 space-y-6">
+        <div className="glass-effect border-2 border-primary-400/20 rounded-xl p-6 space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 bg-primary-500/15 rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <div>
-              <p className="font-semibold text-dark-100 text-lg">Dosya Başarıyla Yüklendi!</p>
-              <p className="text-sm text-dark-400">Veri analizi tamamlandı</p>
+              <p className="font-semibold text-dark-50 text-lg">Upload Successful</p>
+              <p className="text-sm text-dark-300">Dataset analysis complete</p>
             </div>
           </div>
 

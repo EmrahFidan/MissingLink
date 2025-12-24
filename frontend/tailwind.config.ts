@@ -10,18 +10,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Modern dark theme colors for data science platform
+        // Professional data science platform colors
         primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',  // Main green accent
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
+          50: '#faf5ff',
+          100: '#f3e8ff',
+          200: '#e9d5ff',
+          300: '#d8b4fe',
+          400: '#c084fc',
+          500: '#a855f7',  // Main purple accent (like Jupyter)
+          600: '#9333ea',
+          700: '#7e22ce',
+          800: '#6b21a8',
+          900: '#581c87',
         },
         secondary: {
           50: '#eff6ff',
@@ -29,11 +29,23 @@ const config: Config = {
           200: '#bfdbfe',
           300: '#93c5fd',
           400: '#60a5fa',
-          500: '#3b82f6',  // Blue accent
+          500: '#3b82f6',  // Professional blue
           600: '#2563eb',
           700: '#1d4ed8',
           800: '#1e40af',
           900: '#1e3a8a',
+        },
+        accent: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#ef4444',  // Subtle red for alerts
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
         },
         dark: {
           50: '#f8fafc',
@@ -45,9 +57,9 @@ const config: Config = {
           600: '#475569',
           700: '#334155',
           800: '#1e293b',
-          850: '#172033',
+          850: '#16202e',
           900: '#0f172a',
-          950: '#020617',
+          950: '#0a0f1a',
         },
       },
       fontFamily: {
