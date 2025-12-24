@@ -28,14 +28,24 @@ class CTGANTrainer:
 
     def prepare_metadata(self) -> SingleTableMetadata:
         """
-        Veri seti için metadata oluştur
+        Veri seti için metadata oluştur (PII detection kapalı)
 
         Returns:
             SDV SingleTableMetadata objesi
         """
-        # Otomatik metadata oluştur
+        # Manuel metadata oluştur (PII detection olmadan)
         metadata = SingleTableMetadata()
-        metadata.detect_from_dataframe(self.df)
+
+        # Her kolonu manuel ekle - PII olarak işaretlenmeyecek
+        for column in self.df.columns:
+            if pd.api.types.is_numeric_dtype(self.df[column]):
+                metadata.add_column(column, sdtype='numerical')
+            elif pd.api.types.is_datetime64_any_dtype(self.df[column]):
+                metadata.add_column(column, sdtype='datetime')
+            elif pd.api.types.is_bool_dtype(self.df[column]):
+                metadata.add_column(column, sdtype='boolean')
+            else:
+                metadata.add_column(column, sdtype='categorical')
 
         self.metadata = metadata
         return metadata
