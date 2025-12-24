@@ -190,7 +190,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                       {piiReport.columns_with_pii.map((col) => (
                         <span
                           key={col}
-                          className="bg-red-100 text-red-400 text-xs px-3 py-1 rounded-full"
+                          className="bg-red-500/10 text-red-400 border border-red-500/30 text-xs px-3 py-1 rounded-full"
                         >
                           {col}
                         </span>
@@ -324,7 +324,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
 
               {/* Replacement Stats */}
               {anonymizeResult.anonymization_report.replacement_stats && (
-                <div className="bg-white rounded border p-3 mb-4">
+                <div className="bg-dark-900/40 rounded-lg border border-dark-700 border p-3 mb-4">
                   <h4 className="font-bold text-sm mb-2">Değiştirme İstatistikleri</h4>
                   {Object.entries(
                     anonymizeResult.anonymization_report.replacement_stats

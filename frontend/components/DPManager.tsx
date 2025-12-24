@@ -299,7 +299,7 @@ export default function DPManager({ filename }: DPManagerProps) {
 
               {/* Noise Statistics */}
               {dpResult.dp_report?.noise_statistics && (
-                <div className="bg-white rounded border p-3 mb-4 max-h-60 overflow-y-auto">
+                <div className="bg-dark-900/40 rounded-lg border border-dark-700 border p-3 mb-4 max-h-60 overflow-y-auto">
                   <h4 className="font-bold text-sm mb-2">Gürültü İstatistikleri</h4>
                   {Object.entries(dpResult.dp_report.noise_statistics).map(
                     ([col, stats]: [string, any]) => (
