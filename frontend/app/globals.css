@@ -62,4 +62,36 @@
     box-shadow: 0 12px 20px -5px rgba(168, 85, 247, 0.15), 0 8px 8px -5px rgba(168, 85, 247, 0.08);
     border-color: rgba(168, 85, 247, 0.2);
   }
+
+  /* Dark theme for select dropdowns */
+  select {
+    color-scheme: dark;
+  }
+
+  select option {
+    background-color: #0f172a;
+    color: #f1f5f9;
+    padding: 8px;
+  }
+
+  select option:checked,
+  select option:hover {
+    background-color: #1e293b;
+    color: #a855f7;
+  }
+
+  /* Dark theme for checkboxes */
+  input[type="checkbox"] {
+    accent-color: #a855f7;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  /* Dark theme for number/text inputs focus */
+  input:focus,
+  select:focus {
+    outline: 2px solid rgba(168, 85, 247, 0.5);
+    outline-offset: 2px;
+  }
 }
