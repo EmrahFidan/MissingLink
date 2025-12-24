@@ -115,8 +115,8 @@ export default function PIIManager({ filename }: PIIManagerProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <h2 className="text-2xl font-bold mb-6">
+    <div className="glass-effect rounded-xl border border-dark-700 p-6 mt-6">
+      <h2 className="text-2xl font-bold text-dark-50 mb-6">
         🛡️ PII Tespiti ve Anonimleştirme
       </h2>
 
@@ -126,7 +126,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           onClick={() => setActiveTab("detect")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "detect"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -136,7 +136,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           onClick={() => setActiveTab("anonymize")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "anonymize"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -158,7 +158,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           <button
             onClick={handleDetectPII}
             disabled={isDetecting}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {isDetecting ? "Tespit Ediliyor..." : "PII Tespit Et"}
           </button>
@@ -270,7 +270,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                     onClick={() => toggleColumnSelection(col)}
                     className={`px-3 py-1 rounded text-sm ${
                       selectedColumns.includes(col)
-                        ? "bg-blue-600 text-white"
+                        ? "bg-primary-600 text-white"
                         : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                     }`}
                   >
@@ -298,7 +298,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           <button
             onClick={handleAnonymize}
             disabled={isAnonymizing}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {isAnonymizing ? "Anonimleştiriliyor..." : "Anonimleştir"}
           </button>
@@ -341,7 +341,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                 onClick={() =>
                   handleDownload(anonymizeResult.anonymized_path)
                 }
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700"
               >
                 İndir
               </button>

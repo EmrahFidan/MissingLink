@@ -102,8 +102,8 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <h2 className="text-2xl font-bold mb-6">📊 Validation Report</h2>
+    <div className="glass-effect rounded-xl border border-dark-700 p-6 mt-6">
+      <h2 className="text-2xl font-bold text-dark-50 mb-6">📊 Validation Report</h2>
 
       {/* Sentetik dosya seçimi */}
       <div className="mb-6">
@@ -130,7 +130,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           onClick={() => setActiveTab("similarity")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "similarity"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -140,7 +140,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           onClick={() => setActiveTab("utility")}
           className={`pb-2 px-4 font-medium ${
             activeTab === "utility"
-              ? "border-b-2 border-blue-500 text-blue-600"
+              ? "border-b-2 border-primary-500 text-primary-400"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -154,7 +154,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           <button
             onClick={handleGenerateSimilarity}
             disabled={isGeneratingSimilarity || !selectedSynthetic}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {isGeneratingSimilarity ? "Oluşturuluyor..." : "Similarity Report Oluştur"}
           </button>
@@ -193,7 +193,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
                         <div className="flex items-center gap-2">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div
-                              className="bg-blue-600 h-2 rounded-full"
+                              className="bg-primary-600 h-2 rounded-full"
                               style={{ width: `${data.similarity_score * 100}%` }}
                             />
                           </div>
@@ -230,7 +230,7 @@ export default function ValidationReport({ filename }: ValidationReportProps) {
           <button
             onClick={handleGenerateUtility}
             disabled={isGeneratingUtility || !selectedSynthetic || !targetColumn}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {isGeneratingUtility ? "Hesaplanıyor..." : "Utility Score Hesapla"}
           </button>
