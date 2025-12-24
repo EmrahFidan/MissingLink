@@ -40,11 +40,11 @@ export default function DPManager({ filename }: DPManagerProps) {
   // Privacy level renkleri
   const getPrivacyLevelColor = (level: string) => {
     const colors: Record<string, string> = {
-      "very_high": "text-green-600 glass-effect border border-secondary-500/30 bg-secondary-500/5",
-      "high": "text-primary-300 bg-primary-500/10 border-primary-500/30",
-      "medium": "text-accent-300 bg-accent-500/10 border-accent-500/30",
-      "low": "text-accent-400 bg-accent-500/15 border-accent-500/40",
-      "very_low": "text-red-400 bg-red-500/10 border-red-500/30"
+      "very_high": "text-secondary-300 glass-effect border border-secondary-500/30 bg-secondary-500/5",
+      "high": "text-primary-300 glass-effect border border-primary-500/30 bg-primary-500/10",
+      "medium": "text-accent-300 glass-effect border border-accent-500/30 bg-accent-500/10",
+      "low": "text-accent-400 glass-effect border border-accent-500/40 bg-accent-500/15",
+      "very_low": "text-red-400 glass-effect border border-red-500/30 bg-red-500/10"
     };
     return colors[level] || colors["medium"];
   };
@@ -178,7 +178,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "apply"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           DP Uygula
@@ -188,7 +188,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "k-anonymity"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           K-Anonymity
@@ -198,7 +198,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "recommendation"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Epsilon Önerisi
@@ -209,7 +209,7 @@ export default function DPManager({ filename }: DPManagerProps) {
       {activeTab === "apply" && (
         <div className="space-y-4">
           <div className="glass-effect border border-primary-500/30 bg-primary-500/5 rounded-lg p-4">
-            <p className="text-sm text-purple-800">
+            <p className="text-sm text-primary-300">
               <strong>Differential Privacy:</strong> Veriye gürültü ekleyerek
               bireysel kayıtların gizliliğini korur. Epsilon değeri ne kadar küçükse
               gizlilik o kadar yüksektir.
@@ -241,7 +241,7 @@ export default function DPManager({ filename }: DPManagerProps) {
               onChange={(e) => setEpsilon(parseFloat(e.target.value))}
               className="w-full"
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+            <div className="flex justify-between text-xs text-dark-400 mt-1">
               <span>0.1 (Yüksek Gizlilik)</span>
               <span>10.0 (Düşük Gizlilik)</span>
             </div>
@@ -279,7 +279,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           <button
             onClick={handleApplyDP}
             disabled={isApplying}
-            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isApplying ? "Uygulanıyor..." : "Differential Privacy Uygula"}
           </button>
@@ -287,7 +287,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           {/* DP Result */}
           {dpResult && (
             <div className="mt-6 p-4 glass-effect border border-primary-500/30 bg-primary-500/5 rounded-md">
-              <h3 className="font-bold text-purple-800 mb-2">
+              <h3 className="font-bold text-primary-300 mb-2">
                 ✅ DP Başarıyla Uygulandı!
               </h3>
               <div className="text-sm space-y-1 mb-4">
@@ -328,7 +328,7 @@ export default function DPManager({ filename }: DPManagerProps) {
       {activeTab === "k-anonymity" && (
         <div className="space-y-4">
           <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-            <p className="text-sm text-orange-800">
+            <p className="text-sm text-accent-300">
               <strong>K-Anonymity:</strong> Her kayıt grubunda en az K adet kayıt
               olmasını garanti eder. Bu re-identification riskini azaltır.
             </p>
@@ -363,7 +363,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           <button
             onClick={handleCheckKAnonymity}
             disabled={isCheckingK}
-            className="w-full bg-accent-600 text-white py-3 px-4 rounded-md hover:bg-accent-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-accent-600 text-white py-3 px-4 rounded-md hover:bg-accent-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isCheckingK ? "Kontrol Ediliyor..." : "K-Anonymity Kontrol Et"}
           </button>
@@ -376,7 +376,7 @@ export default function DPManager({ filename }: DPManagerProps) {
                 : "bg-red-50 border-red-200"
             }`}>
               <h3 className={`font-bold mb-2 ${
-                kAnonymityResult.is_k_anonymous ? "text-green-800" : "text-red-800"
+                kAnonymityResult.is_k_anonymous ? "text-secondary-300" : "text-red-400"
               }`}>
                 {kAnonymityResult.is_k_anonymous ? "✅ K-Anonymous" : "⚠️ Risk Var"}
               </h3>
@@ -395,7 +395,7 @@ export default function DPManager({ filename }: DPManagerProps) {
       {activeTab === "recommendation" && (
         <div className="space-y-4">
           <div className="glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
+            <p className="text-sm text-secondary-300">
               <strong>Epsilon Önerisi:</strong> Kullanım senaryonuza ve veri hassasiyetinize
               göre optimal epsilon değeri önerilir.
             </p>
@@ -441,7 +441,7 @@ export default function DPManager({ filename }: DPManagerProps) {
           {/* Recommendation Result */}
           {recommendation && (
             <div className="mt-6 p-4 glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-md">
-              <h3 className="font-bold text-blue-800 mb-2">Epsilon Önerisi</h3>
+              <h3 className="font-bold text-secondary-300 mb-2">Epsilon Önerisi</h3>
               <div className="text-sm space-y-1">
                 <p><strong>Önerilen Epsilon:</strong> {recommendation.recommended_epsilon}</p>
                 <p><strong>Gizlilik Seviyesi:</strong> {recommendation.privacy_level}</p>

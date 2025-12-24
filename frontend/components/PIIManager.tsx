@@ -127,7 +127,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "detect"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           PII Tespit Et
@@ -137,7 +137,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           className={`pb-2 px-4 font-medium ${
             activeTab === "anonymize"
               ? "border-b-2 border-primary-500 text-primary-400"
-              : "text-gray-500 hover:text-gray-700"
+              : "text-dark-400 hover:text-dark-200"
           }`}
         >
           Anonimleştir
@@ -148,7 +148,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
       {activeTab === "detect" && (
         <div className="space-y-4">
           <div className="glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
+            <p className="text-sm text-secondary-300">
               <strong>PII (Personally Identifiable Information):</strong> İsim,
               e-posta, telefon gibi kişisel veriler tespit edilir ve KVKK uyumu
               için raporlanır.
@@ -158,7 +158,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           <button
             onClick={handleDetectPII}
             disabled={isDetecting}
-            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isDetecting ? "Tespit Ediliyor..." : "PII Tespit Et"}
           </button>
@@ -170,11 +170,11 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                 <h3 className="font-bold text-lg mb-3">Tespit Sonuçları</h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-600">Toplam Sütun</p>
+                    <p className="text-dark-300">Toplam Sütun</p>
                     <p className="font-bold text-2xl">{piiReport.total_columns}</p>
                   </div>
                   <div>
-                    <p className="text-gray-600">PII İçeren Sütun</p>
+                    <p className="text-dark-300">PII İçeren Sütun</p>
                     <p className="font-bold text-2xl text-red-600">
                       {piiReport.columns_with_pii.length}
                     </p>
@@ -183,14 +183,14 @@ export default function PIIManager({ filename }: PIIManagerProps) {
 
                 {piiReport.columns_with_pii.length > 0 && (
                   <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">
+                    <p className="text-sm font-medium text-dark-200 mb-2">
                       PII İçeren Sütunlar:
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {piiReport.columns_with_pii.map((col) => (
                         <span
                           key={col}
-                          className="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full"
+                          className="bg-red-100 text-red-400 text-xs px-3 py-1 rounded-full"
                         >
                           {col}
                         </span>
@@ -207,7 +207,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                   {piiPreview.samples.map((sample, idx) => (
                     <div
                       key={idx}
-                      className="bg-white border border-gray-200 rounded-lg p-4"
+                      className="glass-effect border border-dark-700 rounded-lg p-4"
                     >
                       <div className="flex items-center gap-2 mb-3">
                         <h4 className="font-bold">{sample.column}</h4>
@@ -223,14 +223,14 @@ export default function PIIManager({ filename }: PIIManagerProps) {
                             className="grid grid-cols-2 gap-4 text-sm border-t pt-2"
                           >
                             <div>
-                              <p className="text-gray-500 text-xs">Orijinal</p>
+                              <p className="text-dark-400 text-xs">Orijinal</p>
                               <p className="font-medium text-red-700">
                                 {item.original}
                               </p>
                             </div>
                             <div>
-                              <p className="text-gray-500 text-xs">Sentetik</p>
-                              <p className="font-medium text-green-700">
+                              <p className="text-dark-400 text-xs">Sentetik</p>
+                              <p className="font-medium text-secondary-300">
                                 {item.synthetic}
                               </p>
                             </div>
@@ -250,7 +250,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
       {activeTab === "anonymize" && (
         <div className="space-y-4">
           <div className="glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-lg p-4">
-            <p className="text-sm text-green-800">
+            <p className="text-sm text-secondary-300">
               <strong>Anonimleştirme:</strong> Tespit edilen PII&apos;lar Faker
               kütüphanesi ile sentetik verilerle değiştirilir. Gerçek veriler
               korunur.
@@ -260,7 +260,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           {/* Column Selection */}
           {piiReport && piiReport.columns_with_pii.length > 0 && (
             <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-700">
+              <p className="text-sm font-medium text-dark-200">
                 Anonimleştirilecek Sütunlar (Boş bırakırsanız tümü):
               </p>
               <div className="flex flex-wrap gap-2">
@@ -290,7 +290,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
               onChange={(e) => setConsistent(e.target.checked)}
               className="mr-2"
             />
-            <label htmlFor="consistent" className="text-sm text-gray-700">
+            <label htmlFor="consistent" className="text-sm text-dark-200">
               Tutarlı anonimleştirme (Aynı değerler için aynı sentetik veri)
             </label>
           </div>
@@ -298,7 +298,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           <button
             onClick={handleAnonymize}
             disabled={isAnonymizing}
-            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
           >
             {isAnonymizing ? "Anonimleştiriliyor..." : "Anonimleştir"}
           </button>
@@ -306,7 +306,7 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           {/* Anonymize Result */}
           {anonymizeResult && (
             <div className="mt-6 p-4 glass-effect border border-secondary-500/30 bg-secondary-500/5 rounded-md">
-              <h3 className="font-bold text-green-800 mb-2">
+              <h3 className="font-bold text-secondary-300 mb-2">
                 ✅ Anonimleştirme Tamamlandı!
               </h3>
               <div className="text-sm space-y-1 mb-4">
