@@ -28,6 +28,8 @@ export default function PIIManager({ filename }: PIIManagerProps) {
   const [activeTab, setActiveTab] = useState<"detect" | "anonymize">("detect");
   const [isDetecting, setIsDetecting] = useState(false);
   const [isAnonymizing, setIsAnonymizing] = useState(false);
+  const [detectionProgress, setDetectionProgress] = useState(0);
+  const [anonymizationProgress, setAnonymizationProgress] = useState(0);
   const [piiReport, setPiiReport] = useState<PIIReport | null>(null);
   const [piiPreview, setPiiPreview] = useState<PIIPreview | null>(null);
   const [anonymizeResult, setAnonymizeResult] = useState<any>(null);
@@ -36,14 +38,16 @@ export default function PIIManager({ filename }: PIIManagerProps) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
-  // PII tespiti
+  // PII tespiti (Gerçek async API ile)
   const handleDetectPII = async () => {
     setIsDetecting(true);
     setPiiReport(null);
     setPiiPreview(null);
+    setDetectionProgress(0);
 
     try {
-      const response = await fetch(`${API_URL}/api/v1/detect-pii`, {
+      // Start async detection task
+      const startResponse = await fetch(`${API_URL}/api/v1/async/detect-pii`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,27 +58,58 @@ export default function PIIManager({ filename }: PIIManagerProps) {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("PII tespiti başarısız oldu");
+      if (!startResponse.ok) {
+        throw new Error("PII tespiti başlatılamadı");
       }
 
-      const data = await response.json();
-      setPiiReport(data.pii_report);
-      setPiiPreview(data.preview);
+      const { task_id } = await startResponse.json();
+
+      // Poll for progress
+      const pollInterval = setInterval(async () => {
+        try {
+          const statusResponse = await fetch(`${API_URL}/api/v1/async/task/${task_id}`);
+          const statusData = await statusResponse.json();
+
+          // Update progress from backend
+          if (statusData.state === 'PROGRESS' && statusData.progress) {
+            const { current, total } = statusData.progress;
+            const percentage = (current / total) * 100;
+            setDetectionProgress(percentage);
+          } else if (statusData.state === 'SUCCESS') {
+            clearInterval(pollInterval);
+            setDetectionProgress(100);
+            setPiiReport(statusData.result.pii_report);
+            setPiiPreview(statusData.result.preview);
+            setTimeout(() => {
+              setIsDetecting(false);
+              setDetectionProgress(0);
+            }, 1000);
+          } else if (statusData.state === 'FAILURE') {
+            clearInterval(pollInterval);
+            throw new Error(statusData.error || "PII tespiti başarısız oldu");
+          }
+        } catch (pollError: any) {
+          clearInterval(pollInterval);
+          throw pollError;
+        }
+      }, 1000);
+
     } catch (error: any) {
-      alert("Hata: " + error.message);
-    } finally {
+      setDetectionProgress(0);
       setIsDetecting(false);
+      alert("Hata: " + error.message);
     }
   };
 
-  // Anonimleştirme
+  // Anonimleştirme (Gerçek async API ile)
   const handleAnonymize = async () => {
     setIsAnonymizing(true);
     setAnonymizeResult(null);
+    setAnonymizationProgress(0);
 
     try {
-      const response = await fetch(`${API_URL}/api/v1/anonymize`, {
+      // Start async anonymization task
+      const startResponse = await fetch(`${API_URL}/api/v1/async/anonymize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,16 +122,45 @@ export default function PIIManager({ filename }: PIIManagerProps) {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Anonimleştirme başarısız oldu");
+      if (!startResponse.ok) {
+        throw new Error("Anonimleştirme başlatılamadı");
       }
 
-      const data = await response.json();
-      setAnonymizeResult(data);
+      const { task_id } = await startResponse.json();
+
+      // Poll for progress
+      const pollInterval = setInterval(async () => {
+        try {
+          const statusResponse = await fetch(`${API_URL}/api/v1/async/task/${task_id}`);
+          const statusData = await statusResponse.json();
+
+          // Update progress from backend
+          if (statusData.state === 'PROGRESS' && statusData.progress) {
+            const { current, total } = statusData.progress;
+            const percentage = (current / total) * 100;
+            setAnonymizationProgress(percentage);
+          } else if (statusData.state === 'SUCCESS') {
+            clearInterval(pollInterval);
+            setAnonymizationProgress(100);
+            setAnonymizeResult(statusData.result);
+            setTimeout(() => {
+              setIsAnonymizing(false);
+              setAnonymizationProgress(0);
+            }, 1000);
+          } else if (statusData.state === 'FAILURE') {
+            clearInterval(pollInterval);
+            throw new Error(statusData.error || "Anonimleştirme başarısız oldu");
+          }
+        } catch (pollError: any) {
+          clearInterval(pollInterval);
+          throw pollError;
+        }
+      }, 1000);
+
     } catch (error: any) {
-      alert("Hata: " + error.message);
-    } finally {
+      setAnonymizationProgress(0);
       setIsAnonymizing(false);
+      alert("Hata: " + error.message);
     }
   };
 
@@ -158,10 +222,46 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           <button
             onClick={handleDetectPII}
             disabled={isDetecting}
-            className="w-full bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-xl hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
           >
-            {isDetecting ? "Tespit Ediliyor..." : "PII Tespit Et"}
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              {isDetecting ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  PII Tespit Ediliyor...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  PII Tespit Et
+                </>
+              )}
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           </button>
+
+          {/* Detection Progress Bar */}
+          {isDetecting && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-dark-200">Progress</span>
+                <span className="text-primary-400 font-semibold">{Math.round(detectionProgress)}%</span>
+              </div>
+              <div className="relative h-3 bg-dark-800 rounded-full overflow-hidden border border-dark-700">
+                <div
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-600 to-primary-400 transition-all duration-500 ease-out rounded-full"
+                  style={{ width: `${detectionProgress}%` }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* PII Report */}
           {piiReport && (
@@ -298,10 +398,46 @@ export default function PIIManager({ filename }: PIIManagerProps) {
           <button
             onClick={handleAnonymize}
             disabled={isAnonymizing}
-            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-md hover:bg-secondary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-secondary-600 text-white py-3 px-4 rounded-xl hover:bg-secondary-700 disabled:bg-dark-700 disabled:cursor-not-allowed font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
           >
-            {isAnonymizing ? "Anonimleştiriliyor..." : "Anonimleştir"}
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              {isAnonymizing ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Uygulanıyor...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Anonimleştir
+                </>
+              )}
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           </button>
+
+          {/* Anonymization Progress Bar */}
+          {isAnonymizing && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-dark-200">Progress</span>
+                <span className="text-secondary-400 font-semibold">{Math.round(anonymizationProgress)}%</span>
+              </div>
+              <div className="relative h-3 bg-dark-800 rounded-full overflow-hidden border border-dark-700">
+                <div
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary-600 to-secondary-400 transition-all duration-500 ease-out rounded-full"
+                  style={{ width: `${anonymizationProgress}%` }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Anonymize Result */}
           {anonymizeResult && (

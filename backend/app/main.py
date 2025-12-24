@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # API router'ları import et
-from app.api import upload, analysis, ctgan, pii, dp, validation, async_ctgan
+from app.api import upload, analysis, ctgan, pii, dp, validation, async_ctgan, async_pii
 
 # FastAPI uygulaması oluştur
 app = FastAPI(
@@ -38,6 +38,7 @@ app.include_router(analysis.router, prefix="/api/v1", tags=["Analysis"])
 app.include_router(ctgan.router, prefix="/api/v1", tags=["CTGAN"])
 app.include_router(async_ctgan.router, prefix="/api/v1", tags=["Async CTGAN"])
 app.include_router(pii.router, prefix="/api/v1", tags=["PII"])
+app.include_router(async_pii.router, prefix="/api/v1", tags=["Async PII"])
 app.include_router(dp.router, prefix="/api/v1", tags=["Differential Privacy"])
 app.include_router(validation.router, prefix="/api/v1", tags=["Validation"])
 
